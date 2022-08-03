@@ -35,6 +35,15 @@ namespace RegisterationAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RegisterationAPI", Version = "v1" });
             });
+
+            services.AddCors(c => 
+            { 
+                c.AddPolicy("AllowOrigin", 
+                    options => options.AllowAnyOrigin()
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod());
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +59,10 @@ namespace RegisterationAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(options => options.AllowAnyOrigin()
+                                          .AllowAnyHeader()
+                                          .AllowAnyMethod());
 
             app.UseAuthorization();
 
