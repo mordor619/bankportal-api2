@@ -20,13 +20,13 @@ namespace RegisterationAPI.Controllers
 
         [HttpGet]
         [Route("Signin")]
-        public IActionResult Signin(long AccountNumber, string Password)
+        public IActionResult Signin(string AccountNumber, string Password)
         {
             List<UserAccount> users = db.UserAccounts.ToList();
 
             foreach(UserAccount user in users)
             {
-                if(user.AccountNumber.Equals(AccountNumber.ToString()) && user.Password == Password)
+                if(user.AccountNumber.Equals(AccountNumber) && user.Password == Password)
                 {
                     return Ok(new { status = 200, isSuccess = true, message = "User Login successfully!" });
                 }
