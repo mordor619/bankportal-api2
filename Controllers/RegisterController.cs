@@ -24,7 +24,7 @@ namespace RegisterationAPI.Controllers
         {
             try
             {
-                Random random = new Random();
+                Random random = new();
                 int pinnum = random.Next(1000, 9999);            //pin number can be same
                 user.Pin = pinnum;
             Repeat:

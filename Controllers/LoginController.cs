@@ -32,7 +32,7 @@ namespace RegisterationAPI.Controllers
                 }
             }
             
-            return NotFound(new { status = 401, isSuccess = false, message = "Invalid User!" });
+            return Ok(new { status = 401, isSuccess = false, message = "Invalid User!" });
         }
 
     }
