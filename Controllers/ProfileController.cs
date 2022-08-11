@@ -9,16 +9,16 @@ namespace RegisterationAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DashboardController : ControllerBase
+    public class ProfileController : ControllerBase
     {
         private readonly BankingContext db;
-        public DashboardController(BankingContext _db)
+        public ProfileController(BankingContext _db)
         {
             db = _db;
         }
 
         [HttpGet]
-        [Route("{accno}")]
+        [Route("getDetailsByAccountNo")]
         public async Task<IActionResult> ViewProfileByAccno(string accno)
         {
             UserAccount c = await db.UserAccounts.FindAsync(accno);
