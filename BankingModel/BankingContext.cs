@@ -17,6 +17,7 @@ namespace RegisterationAPI.BankingModel
         {
         }
 
+        public virtual DbSet<TransactionTbl> TransactionTbls { get; set; }
         public virtual DbSet<UserAccount> UserAccounts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -24,13 +25,36 @@ namespace RegisterationAPI.BankingModel
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=KANINI-LTP-459\\SQLEXPRESS;Database=Banking;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=KANINI-LTP-485\\SQLSERVERAKSHU;Database=Banking;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<TransactionTbl>(entity =>
+            {
+                entity.HasKey(e => e.TransactionId);
+
+                entity.ToTable("TransactionTbl");
+
+                entity.Property(e => e.TransactionId).HasColumnName("Transaction ID");
+
+                entity.Property(e => e.AccountNumber)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .HasColumnName("Account Number")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Date).HasColumnType("date");
+
+                entity.Property(e => e.Message).IsRequired();
+
+                entity.Property(e => e.Type)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
 
             modelBuilder.Entity<UserAccount>(entity =>
             {
