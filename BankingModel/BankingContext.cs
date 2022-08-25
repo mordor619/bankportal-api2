@@ -17,6 +17,7 @@ namespace RegisterationAPI.BankingModel
         {
         }
 
+        public virtual DbSet<TransactionTbl> TransactionTbls { get; set; }
         public virtual DbSet<UserAccount> UserAccounts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -31,6 +32,29 @@ namespace RegisterationAPI.BankingModel
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<TransactionTbl>(entity =>
+            {
+                entity.HasKey(e => e.TransactionId);
+
+                entity.ToTable("TransactionTbl");
+
+                entity.Property(e => e.TransactionId).HasColumnName("Transaction ID");
+
+                entity.Property(e => e.AccountNumber)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .HasColumnName("Account Number")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Date).HasColumnType("date");
+
+                entity.Property(e => e.Message).IsRequired();
+
+                entity.Property(e => e.Type)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
 
             modelBuilder.Entity<UserAccount>(entity =>
             {
