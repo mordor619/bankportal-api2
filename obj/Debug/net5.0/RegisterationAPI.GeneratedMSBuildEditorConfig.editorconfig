@@ -6,5 +6,3 @@ build_property.ProjectTypeGuids =
 build_property.PublishSingleFile = 
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
-build_property.RootNamespace = RegisterationAPI
-build_property.ProjectDir = C:\Users\Administrator.KANINI-LTP-459\Downloads\react poc 1st august\RegisterationAPI\
